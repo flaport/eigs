@@ -32,6 +32,8 @@ fn main() {
 3: 0.1713950830265607 + 0.46316839127801934j
 ```
 
+Find more examples in the [examples](./examples) folder.
+
 ## Installation
 
 ```bash
