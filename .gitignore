@@ -1,0 +1,11 @@
+*.so
+*.ipynb
+*.profraw
+.tags
+.ipynb_checkpoints
+.tags
+.vscode/
+Cargo.lock
+debug
+target
+Cargo.lock

@@ -1,0 +1,5 @@
+[cargo]
+extra-cfgs = ["rustc-workspace-hack"]
+
+[cargo-features]
+proc-macro-caching = true
