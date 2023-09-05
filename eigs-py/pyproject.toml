@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools", "pip", "build", "wheel", "bump2version", "maturin"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eigs"
+version = "0.0.1"
+authors = [
+{ name = "Floris Laporte", email = "floris.laporte@gmail.com" },
+]
+description = "An efficient complex eigensolver written in Rust."
+requires-python = ">=3.10"
+keywords = [
+  "eigenvalues",
+  "eigenvectors",
+  "eigenmodes",
+  "eigs",
+]
+license = { text = "LGPL-2.1-only" }
+readme = "README.md"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+  "numpy",
+  "scipy",
+]
+
+[tool.setuptools]
+py-modules=["eigs"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.pyright]
+reportPrivateImportUsage = false
