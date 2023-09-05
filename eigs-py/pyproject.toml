@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools", "pip", "build", "wheel", "bump2version", "maturin"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools", "pip", "build", "wheel", "bump2version", "maturin>=1,<2"]
+build-backend = "maturin"
 
 [project]
 name = "eigs"
@@ -34,11 +34,9 @@ dependencies = [
   "scipy",
 ]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["eigs"]
-exclude = []
-namespaces = true
+[tool.maturin]
+python-source="pysrc"
+module-name="eigs"
 
 [tool.black]
 line-length = 88
