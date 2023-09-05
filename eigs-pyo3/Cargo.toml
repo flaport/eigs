@@ -1,5 +1,5 @@
 [package]
-name = "eigs-pyo3"
+name = "eigs_pyo3"
 version = "0.0.1"
 edition = "2021"
 authors = ["Floris Laporte <floris.laporte@gmail.com>"]

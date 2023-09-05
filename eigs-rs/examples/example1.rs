@@ -16,13 +16,14 @@ fn main() {
         4., 3., 0., -2., 3., -1., -3., -4., 0., 1., -1., 2., 2., 2., 0., 1., 2., 2., -2., 3., 0.,
         0., 3.,
     ];
-    let Ax: Vec<Complex64> = Are
+    let Az: Vec<Complex64> = Are
         .iter()
         .zip(Aim.iter())
         .map(|(re, im)| Complex64 { re: *re, im: *im })
         .collect();
     let sigma = Complex64 { re: -2.0, im: 7.0 };
-    let (vals, _) = eigs(k, n, &Ap, &Ai, &Ax, sigma, None);
+
+    let (vals, _) = eigs(k, n, &Ap, &Ai, &Az, sigma, None);
     for (i, val) in vals.iter().enumerate() {
         println!("{}: {} + {}j", i, val.re, val.im);
     }
