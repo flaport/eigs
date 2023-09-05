@@ -1,5 +1,5 @@
 import numpy as np
-from eigs_pyo3 import eigs
+from eigs.eigs import _eigs
 
 k = 4  # number of eigenvalues we want returned
 n = 8  # nxn matrix A
@@ -10,7 +10,7 @@ Aim = np.array([4., 3., 0., -2., 3., -1., -3., -4., 0., 1., -1., 2., 2., 2., 0.,
 Az = Are + 1j * Aim
 sigma = -2.0 + 7.0j
 
-vals, vecs = eigs(
+vals, vecs = _eigs(
     num_eigs=k,
     n=n,
     Ap_bytes=np.asarray(Ap, dtype=np.int32).tobytes(),

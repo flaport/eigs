@@ -1,7 +1,10 @@
+__author__ = "Floris Laporte"
+__version__ = "0.0.1"
+
 import numpy as np
 from scipy.sparse import csc_matrix
 
-from eigs_pyo3 import eigs as _eigs
+from eigs.eigs import _eigs # pyo3 lib
 
 
 def eigs(

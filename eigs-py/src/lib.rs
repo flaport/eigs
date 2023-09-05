@@ -7,14 +7,14 @@ use umfpack::complex::as_float_array;
 pub mod read;
 
 #[pymodule]
-fn eigs_pyo3(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(eigs, m)?)?;
+fn eigs(_py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(_eigs, m)?)?;
     Ok(())
 }
 
 #[pyfunction]
 #[allow(non_snake_case)]
-pub fn eigs(
+pub fn _eigs(
     num_eigs: i32,
     n: i32,
     Ap_bytes: Vec<u8>,
