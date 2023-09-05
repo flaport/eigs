@@ -34,8 +34,11 @@ dependencies = [
   "scipy",
 ]
 
-[tool.setuptools]
-py-modules=["eigs"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["eigs"]
+exclude = []
+namespaces = true
 
 [tool.black]
 line-length = 88

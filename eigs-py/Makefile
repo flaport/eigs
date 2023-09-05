@@ -5,6 +5,7 @@ dist: (rs)
 	python -m build --sdist --bdist_wheel
 
 clean:
+	rm -rf *.egg-info
 	find . -name "dist" | xargs rm -rf
 	find . -name "build" | xargs rm -rf
 	find . -name "builds" | xargs rm -rf
