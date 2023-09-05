@@ -5,8 +5,8 @@ Bindings!
 
 ## Read More
 
-- [Rust README](eigs-rs/README.md)
-- [PyO3 Wrapper README](eigs-pyo3/README.md)
+- EIGS-rs Rust Library [README](eigs-rs/README.md)
+- PyO3 (Internal) Python Wrapper Library [README](eigs-pyo3/README.md)
 
 ## License & Credits
 
