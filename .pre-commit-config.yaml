@@ -1,9 +1,0 @@
-repos:
-  - repo: local
-    hooks:
-      - id: rustfmt
-        name: rustfmt
-        entry: rustfmt
-        language: rust
-        pass_filenames: true
-        types: [rust]
