@@ -1,5 +1,5 @@
 __author__ = "Floris Laporte"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 import numpy as np
 from scipy.sparse import csc_matrix
