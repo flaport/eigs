@@ -1,5 +1,5 @@
 [package]
-name = "eigs"
+name = "eigs_rs"
 version = "0.0.2"
 edition = "2021"
 authors = ["Floris Laporte <floris.laporte@gmail.com>"]
@@ -15,7 +15,7 @@ name = "eigs"
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
-eigs_rs = {version="0.0.2", package="eigs"}
+eigs_rs = {path="../rust", package="eigs"}
 num-complex = "0.4.4"
 pyo3 = {version="0.19.2", features=["extension-module"]}
 umfpack-rs = "0.0.1"

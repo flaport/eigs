@@ -22,15 +22,17 @@ pub fn _eigs(
     Az_bytes: Vec<u8>,
     sigma_r: f64,
     sigma_i: f64,
+    v0_bytes: Vec<u8>,
 ) -> (Vec<f64>, Vec<f64>) {
     let Ap: Vec<i32> = read::parse_i32_vec(&Ap_bytes);
     let Ai: Vec<i32> = read::parse_i32_vec(&Ai_bytes);
     let Az: Vec<Complex64> = read::parse_c64_vec(&Az_bytes);
+    let v0: Vec<Complex64> = read::parse_c64_vec(&v0_bytes);
     let sigma = Complex64 {
         re: sigma_r,
         im: sigma_i,
     };
-    let (vals, vecs) = eigs_rs::eigs::eigs(num_eigs, n, &Ap, &Ai, &Az, sigma, None);
+    let (vals, vecs) = eigs_rs::eigs::eigs(num_eigs, n, &Ap, &Ai, &Az, sigma, Some(&v0), None);
     return (
         as_float_array(&vals).iter().map(|f| *f).collect(),
         as_float_array(&vecs).iter().map(|f| *f).collect(),
