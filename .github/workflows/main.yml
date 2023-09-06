@@ -23,8 +23,7 @@ jobs:
       - name: Build wheels
         run: cd eigs-py && python -m cibuildwheel --output-dir ../wheelhouse && cd -
         env:
-          CIBW_BEFORE_BUILD: 'yum install -y clang-devel openssl-devel blas-devel lapack-devel && curl https://sh.rustup.rs -o /tmp/rustup.sh && sh /tmp/rustup.sh -y'
-          CIBW_ENVIRONMENT: 'PATH="$HOME/.cargo/bin:$PATH"'
+          CIBW_MANYLINUX_X86_64_IMAGE: flaport/manylinux2014_x86_64
 
       - uses: actions/upload-artifact@v3
         with:
