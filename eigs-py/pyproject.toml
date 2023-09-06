@@ -19,10 +19,11 @@ keywords = [
 license = { text = "LGPL-2.1-only" }
 readme = "README.md"
 classifiers = [
+  #"Operating System :: OS Independent",
+  "Operating System :: POSIX :: Linux",
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Science/Research",
   "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
-  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -41,3 +42,10 @@ include = '\.pyi?$'
 
 [tool.pyright]
 reportPrivateImportUsage = false
+
+[tool.cibuildwheel]
+build = "*-manylinux2014_x86_64"
+manylinux-x86_64-image = "flaport/manylinux2014_x86_64"
+
+[tool.cibuildwheel.linux]
+environment = {PATH="$HOME/.cargo/bin:$PATH"}

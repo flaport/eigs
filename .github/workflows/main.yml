@@ -22,9 +22,6 @@ jobs:
 
       - name: Build wheels
         run: cd eigs-py && python -m cibuildwheel --output-dir ../wheelhouse && cd -
-        env:
-          CIBW_MANYLINUX_X86_64_IMAGE: flaport/manylinux2014_x86_64
-          CIBW_ENVIRONMENT: 'PATH="$HOME/.cargo/bin:$PATH"'
 
       - uses: actions/upload-artifact@v3
         with:
