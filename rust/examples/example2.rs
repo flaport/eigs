@@ -12,7 +12,7 @@ fn main() {
         re: 202.83,
         im: 0.0,
     };
-    let (vals, _) = eigs(num_eigs, 162, &Ap, &Ai, &Az, sigma, None);
+    let (vals, _) = eigs(num_eigs, 162, &Ap, &Ai, &Az, sigma, None, None);
     for (i, val) in vals.iter().enumerate() {
         println!("{}: {:?}", i, val.re);
     }

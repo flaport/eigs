@@ -39,6 +39,7 @@ pub fn eigs(
     Ai: &[i32],
     Az: &[Complex64],
     sigma: Complex64,
+    v0: Option<&[Complex64]>,
     config: Option<EigsConfig>,
 ) -> (Vec<Complex64>, Vec<Complex64>) {
     let return_eigenvectors = true;
@@ -65,7 +66,10 @@ pub fn eigs(
     let mut numeric = Numeric::new();
     umfpack_zi_numeric(&Asigp, &Asigi, &Asigz, &symbolic, &mut numeric, None, None);
 
-    let mut resid: Vec<Complex64> = (0..n).map(|_| Complex64 { re: 0.0, im: 0.0 }).collect();
+    let mut resid: Vec<Complex64> = match v0 {
+        None => (0..n).map(|_| Complex64 { re: 0.0, im: 0.0 }).collect(),
+        Some(v0) => (0..(n as usize)).map(|i| v0[i]).collect(),
+    };
     let mut v: Vec<Complex64> = (0..n * ncv)
         .map(|_| Complex64 { re: 0.0, im: 0.0 })
         .collect();

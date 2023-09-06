@@ -23,7 +23,7 @@ fn main() {
         .collect();
     let sigma = Complex64 { re: -2.0, im: 7.0 };
 
-    let (vals, _) = eigs(k, n, &Ap, &Ai, &Az, sigma, None);
+    let (vals, _) = eigs(k, n, &Ap, &Ai, &Az, sigma, None, None);
     for (i, val) in vals.iter().enumerate() {
         println!("{}: {} + {}j", i, val.re, val.im);
     }
