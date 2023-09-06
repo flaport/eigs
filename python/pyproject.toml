@@ -9,7 +9,7 @@ authors = [
 { name = "Floris Laporte", email = "floris.laporte@gmail.com" },
 ]
 description = "An efficient complex eigensolver written in Rust."
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 keywords = [
   "eigenvalues",
   "eigenvectors",
@@ -44,8 +44,15 @@ include = '\.pyi?$'
 reportPrivateImportUsage = false
 
 [tool.cibuildwheel]
-build = "*-manylinux_x86_64"
+build = ["*-manylinux_x86_64", "*-win_amd64"] #, "*-macosx_x86_64"]
 manylinux-x86_64-image = "flaport/manylinux2014_x86_64"
 
 [tool.cibuildwheel.linux]
+before-build = []
 environment = {PATH="$HOME/.cargo/bin:$PATH"}
+
+[tool.cibuildwheel.windows]
+before-build = []
+
+[tool.cibuildwheel.macos]
+before-build = []

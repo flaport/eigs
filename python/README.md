@@ -34,8 +34,8 @@ Find more examples in the [examples](./examples) folder.
 
 ## Installation
 
-> Eigs is currently linux-only and for python 3.10+. We might ship Windows/MacOS wheels at
-> a later point in time.
+> Eigs is currently **linux-only** (x86_64) and **python 3.9+**.
+> More platforms might be supported at a later point in time.
 
 ```bash
 pip install eigs
