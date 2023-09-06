@@ -1,14 +1,14 @@
 [package]
-name = "eigs-rs"
+name = "eigs"
 version = "0.0.1"
 edition = "2021"
 authors = ["Floris Laporte <floris.laporte@gmail.com>"]
 readme = "README.md"
 license = " LGPL-2.1-only"
 description = "Find Eigenvalues and Eigenvectors with Rust using UMFPACK + ARPACK"
-documentation = "https://github.com/flaport/eigs-rs"
-homepage = "https://github.com/flaport/eigs-rs"
-repository = "https://github.com/flaport/eigs-rs"
+documentation = "https://github.com/flaport/eigs"
+homepage = "https://github.com/flaport/eigs"
+repository = "https://github.com/flaport/eigs"
 
 [lib]
 name = "eigs"

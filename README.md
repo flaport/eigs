@@ -1,11 +1,11 @@
-# EIGS-rs
+# eigs (Rust/Python Package)
 
 Find Eigenvalues and Eigenvectors with Rust/Python using UMFPACK + ARPACK.
 
 ## Packages
 
-- eigs-rs: [Rust Library](eigs-rs): [eigs-rs on crates.io](https://crates.io/crates/eigs-rs) | `cargo add eigs-rs`
-- eigs-py: [Python Wrapper](eigs-py): [eigs on pypi.org](https://pypi.org/project/eigs) | `pip install eigs`
+- Rust Library: `eigs` @ [crates.io](https://crates.io/crates/eigs): `cargo add eigs`
+- Python Library: `eigs` @ [pypi.org](https://pypi.org/project/eigs): `pip install eigs` (Linux Only for now)
 
 ## Examples
 
@@ -36,9 +36,9 @@ for i, val in enumerate(vals):
 3: 0.1713950830265607 + 0.46316839127801934j
 ```
 
-- [Read More...](eigs-py)
+- [Read More...](python)
 
-### `eigs-rs` (The Rust Package)
+### `eigs` (The Rust Package)
 
 ```rust
 #[allow(non_snake_case)]
@@ -68,7 +68,7 @@ fn main() {
 3: 0.1713950830265607 + 0.46316839127801934j
 ```
 
-- [Read More...](eigs-rs)
+- [Read More...](rust)
 
 
 ## License & Credits

@@ -1,4 +1,4 @@
-# EIGS-py
+# eigs (The Python Package)
 
 Find Eigenvalues and Eigenvectors efficiently in Python using UMFPACK + ARPACK (powered
 by Rust).

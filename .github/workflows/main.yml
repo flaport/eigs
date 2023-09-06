@@ -27,7 +27,7 @@ jobs:
         run: python -m pip install cibuildwheel==2.15.0
 
       - name: Build Wheels
-        run: cd eigs-py && python -m cibuildwheel --output-dir ../wheelhouse && cd -
+        run: cd python && python -m cibuildwheel --output-dir ../wheelhouse && cd -
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3

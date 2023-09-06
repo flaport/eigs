@@ -5,17 +5,17 @@ edition = "2021"
 authors = ["Floris Laporte <floris.laporte@gmail.com>"]
 readme = "README.md"
 license = " LGPL-2.1-only"
-description = "PyO3 wrapper for eigs-rs"
-documentation = "https://github.com/flaport/eigs-rs"
-homepage = "https://github.com/flaport/eigs-rs"
-repository = "https://github.com/flaport/eigs-rs"
+description = "PyO3 wrapper for eigs"
+documentation = "https://github.com/flaport/eigs"
+homepage = "https://github.com/flaport/eigs"
+repository = "https://github.com/flaport/eigs"
 
 [lib]
 name = "eigs"
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
-eigs_rs = {version="0.0.1", package="eigs-rs"}
+eigs_rs = {version="0.0.1", package="eigs"}
 num-complex = "0.4.4"
 pyo3 = {version="0.19.2", features=["extension-module"]}
 umfpack-rs = "0.0.1"

@@ -1,4 +1,4 @@
-# EIGS-rs
+# eigs (The Rust Package)
 
 Find Eigenvalues and Eigenvectors with Rust using UMFPACK + ARPACK
 
@@ -37,7 +37,7 @@ Find more examples in the [examples](./examples) folder.
 ## Installation
 
 ```bash
-cargo add eigs-rs
+cargo add eigs
 ```
 
 ## License & Credits
