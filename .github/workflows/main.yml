@@ -1,5 +1,8 @@
 name: Build & Release
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -34,11 +37,13 @@ jobs:
   release:
     name: Release
     needs: [build_wheels]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Python Setup
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
 
       - name: Download Artifacts
         uses: actions/download-artifact@v3
