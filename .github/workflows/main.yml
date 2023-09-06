@@ -1,0 +1,62 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - '[0-9].[0-9].[0-9]'
+
+jobs:
+  build_wheels:
+    name: Build Wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04] #, windows-2019, macOS-11]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Python Setup
+        uses: actions/setup-python@v3
+
+      - name: Install CI Build Wheel
+        run: python -m pip install cibuildwheel==2.15.0
+
+      - name: Build Wheels
+        run: cd eigs-py && python -m cibuildwheel --output-dir ../wheelhouse && cd -
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./wheelhouse/*.whl
+
+  release:
+    name: Release
+    needs: [build_wheels]
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Python Setup
+        uses: actions/setup-python@v3
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
+
+      - name: Show Dist Contents
+        run: ls dist
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*
+
+      - name: Upload to PYPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
+
