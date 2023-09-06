@@ -15,7 +15,7 @@ name = "eigs"
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
-eigs_rs = {path="../rust", package="eigs"}
+eigs_rs = {version="0.0.3", package="eigs"}
 num-complex = "0.4.4"
 pyo3 = {version="0.19.2", features=["extension-module"]}
 umfpack-rs = "0.0.1"
