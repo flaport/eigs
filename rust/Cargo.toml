@@ -14,7 +14,11 @@ repository = "https://github.com/flaport/eigs"
 name = "eigs"
 crate-type = ["lib", "cdylib"]
 
+[features]
+default=["umfpack-rs"]
+
 [dependencies]
-umfpack-rs = "0.0.1"
+umfpack-rs = {version="0.0.1", optional=true}
+csparse21 = {version="0.2.3", optional=true}
 arpack-ng-sys = {version="0.2.1", features=["static"]}
 num-complex = "0.4.4"

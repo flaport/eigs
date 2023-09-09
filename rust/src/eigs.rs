@@ -1,11 +1,24 @@
-use super::csc::subtract_sparse_csc_matrix;
+#[cfg(all(feature = "csparse21", feature = "umfpack-rs"))]
+compile_error!("Features 'csparse21' and 'umfpack-rs' are mutually exclusive!");
+#[cfg(all(not(feature = "csparse21"), not(feature = "umfpack-rs")))]
+compile_error!("Either feature 'csparse21' or feature 'umfpack-rs' must be enabled!");
+
+use super::csc::csc_subtract;
 use super::split::xslice_yslice;
 use arpack_ng_sys::{__BindgenComplex, znaupd_c, zneupd_c};
 use num_complex::Complex64;
+#[cfg(feature = "umfpack-rs")]
 use umfpack::numeric::Numeric;
+#[cfg(feature = "umfpack-rs")]
 use umfpack::symbolic::Symbolic;
+#[cfg(feature = "umfpack-rs")]
 use umfpack::sys::UMFPACK;
+#[cfg(feature = "umfpack-rs")]
 use umfpack::zi::{umfpack_zi_numeric, umfpack_zi_solve, umfpack_zi_symbolic};
+#[cfg(feature = "csparse21")]
+use csparse21::Matrix;
+#[cfg(feature = "csparse21")]
+use super::csc::csc_to_coo;
 
 pub struct EigsConfig {
     pub howmny: String,
@@ -58,13 +71,53 @@ pub fn eigs(
     let Sp: Vec<i32> = (0..n + 1).map(|i| i).collect();
     let Si: Vec<i32> = (0..n).map(|i| i).collect();
     let Sz: Vec<Complex64> = (0..n).map(|_| sigma).collect();
-    let (Asigp, Asigi, Asigz) = subtract_sparse_csc_matrix(&Ap, &Ai, &Az, &Sp, &Si, &Sz);
+    let (Asigp, Asigi, Asigz) = csc_subtract(&Ap, &Ai, &Az, &Sp, &Si, &Sz);
 
+    #[cfg(feature = "umfpack-rs")]
     let mut symbolic = Symbolic::new();
+
+    #[cfg(feature = "umfpack-rs")]
     umfpack_zi_symbolic(n, n, &Asigp, &Asigi, &Asigz, &mut symbolic, None, None);
 
+    #[cfg(feature = "umfpack-rs")]
     let mut numeric = Numeric::new();
+
+    #[cfg(feature = "umfpack-rs")]
     umfpack_zi_numeric(&Asigp, &Asigi, &Asigz, &symbolic, &mut numeric, None, None);
+
+    #[cfg(feature = "umfpack-rs")]
+    let solve = move |xslice: &mut[Complex64], yslice: &mut[Complex64]| {
+        umfpack_zi_solve(
+            UMFPACK::A,
+            &Asigp,
+            &Asigi,
+            &Asigz,
+            yslice,
+            xslice,
+            &numeric,
+            None,
+            None,
+        );
+    };
+
+    #[cfg(feature = "csparse21")]
+    let mut mat = Matrix::new();
+
+    #[cfg(feature = "csparse21")]
+    {
+        let (Ai, Aj, Az) = csc_to_coo(&Asigi, &Asigp, &Asigz);
+        for ((ai, aj), az) in Ai.iter().zip(Aj.iter()).zip(Az.iter()) {
+            mat.add_element(*ai as usize, *aj as usize, *az)
+        }
+    }
+
+    #[cfg(feature = "csparse21")]
+    let mut solve = move |xslice: &mut[Complex64], yslice: &mut[Complex64]| {
+        let Xz = mat.solve(xslice).unwrap();
+        for i in 0..yslice.len(){
+            yslice[i] = Xz[i];
+        }
+    };
 
     let mut resid: Vec<Complex64> = match v0 {
         None => (0..n).map(|_| Complex64 { re: 0.0, im: 0.0 }).collect(),
@@ -116,35 +169,15 @@ pub fn eigs(
             -1 => {
                 // initialization
                 let (xslice, yslice) = xslice_yslice(&mut workd, n0, n1, n);
-                umfpack_zi_solve(
-                    UMFPACK::A,
-                    &Asigp,
-                    &Asigi,
-                    &Asigz,
-                    yslice,
-                    xslice,
-                    &numeric,
-                    None,
-                    None,
-                );
+                solve(xslice, yslice);
             }
             1 => {
                 let (xslice, yslice) = xslice_yslice(&mut workd, n2, n1, n);
-                umfpack_zi_solve(
-                    UMFPACK::A,
-                    &Asigp,
-                    &Asigi,
-                    &Asigz,
-                    yslice,
-                    xslice,
-                    &numeric,
-                    None,
-                    None,
-                );
+                solve(xslice, yslice);
             }
             2 => {
+                let (xslice, yslice) = xslice_yslice(&mut workd, n0, n1, n);
                 for i in 0..n as usize {
-                    let (xslice, yslice) = xslice_yslice(&mut workd, n0, n1, n);
                     yslice[i] = xslice[i]
                 }
             }
